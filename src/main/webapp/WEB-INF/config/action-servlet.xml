@@ -8,6 +8,13 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	<context:component-scan base-package="first" />
+	
+	<mvc:annotation-driven>
+        <mvc:argument-resolvers>
+            <bean class="first.common.resolver.CustomMapArgumentResolver"></bean>       
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
+    
 	<mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
@@ -24,6 +31,12 @@
         p:viewClass="org.springframework.web.servlet.view.JstlView"
         p:prefix="/WEB-INF/jsp/" p:suffix=".jsp">
     </bean>
-	
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0" />
+     
+    <bean
+        class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="1"
+        p:viewClass="org.springframework.web.servlet.view.JstlView"
+        p:prefix="/WEB-INF/jsp/" p:suffix=".jsp">
+    </bean>
 	
 </beans>

@@ -23,6 +23,10 @@ public class LoggerInterceptor extends HandlerInterceptorAdapter {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 
+		response.setHeader("Pragma", "No-Cache");
+	    response.setHeader("Cache-Control", "No-Cache");
+	    response.setDateHeader("Expires", 0);
+	    
 		if (log.isDebugEnabled()) {
 			log.debug("======================================           END          ======================================\n");
         }

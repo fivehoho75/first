@@ -15,5 +15,50 @@
                 DEL_GB = 'N'
             ORDER BY IDX DESC
         ]]>
-    </select>     
+    </select>
+    
+    <insert id="insertBoard" parameterType="hashmap">
+	    <![CDATA[
+	        INSERT INTO TB_BOARD
+	        (
+	            TITLE, 
+	            CONTENTS, 
+	            HIT_CNT,
+	            CREA_ID
+	        )
+	        VALUES
+	        (
+	            #{TITLE}, 
+	            #{CONTENTS}, 
+	            0, 
+	            'Admin'
+	        )
+	    ]]>
+	</insert>
+	<update id="updateHitCnt" parameterType="hashmap">
+	    <![CDATA[
+	        UPDATE TB_BOARD 
+	        SET
+	            HIT_CNT = IFNULL(HIT_CNT, 0) + 1
+	        WHERE
+	            IDX = #{IDX}    
+	    ]]>
+	</update>
+ 
+	<select id="selectBoardDetail" parameterType="hashmap" resultType="hashmap">
+	    <![CDATA[
+	        SELECT
+	            IDX,
+	            HIT_CNT,
+	            CREA_ID,
+	            CREA_DTM,
+	            TITLE,
+	            CONTENTS
+	        FROM
+	            TB_BOARD
+	        WHERE
+	            IDX = #{IDX}        
+	    ]]>
+	</select>
+
 </mapper>
